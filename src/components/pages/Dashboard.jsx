@@ -37,8 +37,8 @@ export default function Dashboard({ adminUsername, onLogout }) {
                     </div>
 
                     <div className="flex gap-6 items-start">
-                        <TopicFunnelCard />
                         <ChatbotUsageCard />
+                        <TopicFunnelCard />
                     </div>
 
                     <div className="flex gap-6 items-start">
