@@ -7,6 +7,8 @@ import BarrierCard from "../charts/BarrierCard";
 import TopicFunnelCard from "../charts/TopicCharts";
 import ChatbotUsageCard from "../charts/ChatbotUsage";
 import Dropdown from "../ui/Dropdown";
+import AnsweredComplaintsCard from "../charts/AnsweredCharts";
+import SensitiveCategoryPieCard from "../charts/SensitiveCategory";
 
 export default function Dashboard({ adminUsername, onLogout }) {
     const [range, setRange] = useState("7 hari terakhir");
@@ -36,10 +38,14 @@ export default function Dashboard({ adminUsername, onLogout }) {
 
                     <div className="flex gap-6 items-start">
                         <TopicFunnelCard />
-                        <div className="w-96 shrink-0">
-                            <ChatbotUsageCard />
-                        </div>
+                        <ChatbotUsageCard />
                     </div>
+
+                    <div className="flex gap-6 items-start">
+                        <AnsweredComplaintsCard />
+                        <SensitiveCategoryPieCard />
+                    </div>
+
                 </div>
             </main>
         </div>
