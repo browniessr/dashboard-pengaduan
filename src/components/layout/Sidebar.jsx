@@ -1,15 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const menu = [
-    { label: "Ringkasan", icon: "🏠", path: "/ringkasan" },
-    { label: "Naskah bot", icon: "📄", path: "/naskah-bot" },
-    { label: "Kotak masuk", icon: "📥", path: "/kotak-masuk" },
+    { label: "Ringkasan", icon: "🏠", key: "ringkasan" },
+    { label: "Naskah bot", icon: "📄", key: "naskah-bot" },
+    { label: "Kotak masuk", icon: "📥", key: "kotak-masuk" },
 ];
 
 export default function Sidebar({ adminName = "Admin", adminUsername = "akunakun", onLogout }) {
+    const location = useLocation();
+    const audience = location.pathname.split("/")[1] || "peserta";
+
     return (
         <>
-            {/* Sidebar asli — fixed, lepas dari alur layout */}
             <aside className="fixed left-0 top-0 h-screen w-56 shrink-0 px-4 py-6 flex flex-col justify-between bg-slate-50 border-r border-gray-200 z-20">
                 <div>
                     <div className="flex items-center gap-2 mb-10">
@@ -24,8 +26,8 @@ export default function Sidebar({ adminName = "Admin", adminUsername = "akunakun
                     <nav className="flex flex-col gap-1">
                         {menu.map((item) => (
                             <NavLink
-                                key={item.label}
-                                to={item.path}
+                                key={item.key}
+                                to={`/${audience}/${item.key}`}
                                 className={({ isActive }) =>
                                     `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition text-left ${isActive
                                         ? "bg-white text-navy font-medium shadow-sm"
@@ -40,7 +42,6 @@ export default function Sidebar({ adminName = "Admin", adminUsername = "akunakun
                     </nav>
                 </div>
 
-                {/* Profil admin — tetap di bawah, gak ikut ke-scroll karena sidebar fixed */}
                 <div className="border-t border-gray-200 pt-4">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="w-9 h-9 rounded-full bg-gray-300 shrink-0" />
@@ -60,9 +61,6 @@ export default function Sidebar({ adminName = "Admin", adminUsername = "akunakun
                 </div>
             </aside>
 
-            {/* Spacer — elemen kosong seukuran sidebar, ikut alur layout normal.
-                Ini yang "mendorong" konten di sebelahnya biar gak ketutupan
-                sidebar yang fixed, tanpa perlu nambahin ml-56 manual di tempat lain. */}
             <div className="w-56 shrink-0 h-screen" aria-hidden="true" />
         </>
     );
